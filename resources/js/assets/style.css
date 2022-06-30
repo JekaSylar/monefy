@@ -1,0 +1,108 @@
+.login__title {
+  font-family: "Lobster", cursive;
+}
+
+.title__logo {
+  font-family: "Lobster", cursive;
+  text-align: center;
+}
+
+.brand-link {
+  text-align: center;
+  font-size: 1.8rem;
+}
+.brand-image {
+  margin-top: 5px;
+}
+.brand-link .brand-image {
+  float: none;
+}
+
+.info {
+  text-align: center;
+}
+
+.сheck__title {
+  text-align: center;
+}
+
+.check__block {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 15px;
+}
+
+.check__total {
+  align-self: flex-end;
+}
+.check__total span {
+  font-weight: 800;
+}
+
+.currency__info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.currency__subtitle {
+  font-weight: 600;
+}
+
+.table__icome {
+  background-color: #fff;
+}
+
+.main-footer {
+  text-align: center;
+}
+
+.add__income {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 2.5rem;
+  z-index: 9;
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  color: #fff;
+  background-color: #007bff;
+  border: 3px solid #fff;
+}
+
+.add__income .fa-plus {
+  margin-left: 10px;
+}
+
+.btn__created {
+  width: 120px;
+  margin-top: 10px;
+  float: right;
+}
+
+.table__category {
+  text-align: center;
+  background-color: #fff;
+}
+
+.table__category .fa-edit {
+  color: #28a745;
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.table__category .fa-trash {
+  color: #dc3545;
+  font-size: 1.5rem;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.add__user {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: flex-end;
+}
