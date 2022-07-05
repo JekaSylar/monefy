@@ -2,21 +2,21 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <router-link to="/" class="brand-link">
       <img
         src="../assets/img/Logo.png"
         class="brand-image img-circle elevation-3"
         alt="LogoAdmin"
       />
       <span class="brand-text font-weight-light title__logo">Monefy</span>
-    </a>
+    </router-link>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="#" class="d-block">Евгений</a>
+          <router-link to="/user" class="d-block">Евгений</router-link>
         </div>
       </div>
 
@@ -31,27 +31,31 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <router-link to="/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Главная</p>
-            </a>
+            </router-link>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/create" class="nav-link">
               <i class="nav-icon fas fa-plus-circle"></i>
               <p>Добавить</p>
-            </a>
+            </router-link>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/history" class="nav-link">
               <i class="nav-icon fas fa-history"></i>
               <p>История</p>
-            </a>
+            </router-link>
           </li>
 
-          <li class="nav-item">
+          <li
+            class="nav-item"
+            :class="{ 'menu-is-opening menu-open': childMenu }"
+            @click.prevent="childMenu = !childMenu"
+          >
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
@@ -61,36 +65,36 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/income" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Доходы</p>
-                </a>
+                </router-link>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/expense" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Расходы</p>
-                </a>
+                </router-link>
               </li>
             </ul>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/check" class="nav-link">
               <i class="nav-icon fas fa-money-bill"></i>
               <p>Счет</p>
-            </a>
+            </router-link>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/users" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>Пользователи</p>
-            </a>
+            </router-link>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a @click.prevent="logout" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Выход</p>
             </a>
@@ -104,8 +108,47 @@
 </template>
 
 <script>
-export default {};
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
+export default {
+  setup() {
+    const childMenu = ref(false);
+
+    const store = useStore();
+
+    const router = useRouter();
+
+    const logout = () => {
+      store.commit("auth/logout");
+      router.push("/login");
+      store.dispatch("setMessage", {
+        title: "Внимания!",
+        text: "Вы вышли из системы",
+        type: "alert-info",
+        ico: "fa-info",
+      });
+    };
+
+    return {
+      childMenu,
+      logout,
+    };
+  },
+};
 </script>
 
 <style>
+.sidebar a {
+  cursor: pointer;
+}
+.router-link-active .router-link-exact-active {
+  background-color: #007bff !important;
+  color: #fff !important;
+}
+.nav-link a:hover {
+  background-color: #007bff !important;
+  color: #fff !important;
+}
 </style>

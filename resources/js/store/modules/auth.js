@@ -15,6 +15,11 @@ export default {
             state.token = token;
             localStorage.setItem(TOKEN_KEY, token);
         },
+
+        logout(state) {
+            state.token = null;
+            localStorage.removeItem(TOKEN_KEY);
+        },
     },
 
     getters: {
@@ -28,10 +33,9 @@ export default {
     actions: {
         async login({ commit, dispatch }, payload) {
             try {
-                const { data } = await axios.post("/api/login/", {
+                const { data } = await axios.post("/api/v1/login/", {
                     ...payload,
                 });
-                console.log(data.access_token);
                 commit("setToken", data.access_token);
             } catch (e) {
                 dispatch(
@@ -40,6 +44,7 @@ export default {
                         title: "Ошибка",
                         text: "Неверный логин или пароль!",
                         type: "alert-danger",
+                        ico: "fa-exclamation-triangle",
                     },
                     { root: true }
                 );

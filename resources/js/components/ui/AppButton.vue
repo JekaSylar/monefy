@@ -1,5 +1,5 @@
 <template>
-  <button type="submit" :class="['btn btn-block', type]">{{ title }}</button>
+  <button type="submit" :class="['btn ', type, className]">{{ title }}</button>
 </template>
 
 <script>
@@ -18,8 +18,12 @@ export default {
           "btn-success",
           "btn-danger",
           "btn-warning",
+          "btn-info",
         ].includes(value);
       },
+    },
+    className: {
+      type: String,
     },
   },
 };

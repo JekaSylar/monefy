@@ -2,7 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\v1\AuthController;
+use App\Http\Controllers\API\v1\CategoryIncomeController;
+use App\Http\Controllers\API\v1\UserController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +20,17 @@ use App\Http\Controllers\API\AuthController;
 
 */
 
-Route::post('register', [AuthController::class, 'register'])->name('register');
-
-Route::post('login', [AuthController::class, 'login'])->name('login');
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['prefix' => 'v1'], function () {
+    //Route::post('register', [AuthController::class, 'register'])->name('register');
+
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+
+    Route::apiResources([
+        'categoryincomes' => CategoryIncomeController::class,
+        'users' => UserController::class,
+    ]);
 });

@@ -15,17 +15,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>{{ text }}</p>
-        </div>
-        <div class="modal-footer justify-content-between">
-          <button
-            type="button"
-            @click.prevent="$emit('close')"
-            class="btn btn-info"
-            data-dismiss="modal"
-          >
-            Закрыть
-          </button>
+          <slot />
         </div>
       </div>
     </div>
@@ -34,15 +24,10 @@
 
 <script>
 import { ref } from "vue";
-import AppButton from "./AppButton.vue";
 
 export default {
   props: {
     title: {
-      type: String,
-      required: true,
-    },
-    text: {
       type: String,
       required: true,
     },
@@ -57,7 +42,6 @@ export default {
 
     return { close, isModal };
   },
-  components: { AppButton },
 };
 </script>
 

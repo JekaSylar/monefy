@@ -46,6 +46,7 @@
             <app-button
               @click.prevent="isModal = true"
               title="Регистрация"
+              className="btn-block"
               type="btn-success"
             />
           </div>
@@ -53,6 +54,7 @@
           <div class="col-6">
             <app-button
               :disabled="isSubmitting"
+              className="btn-block"
               title="Войти"
               type="btn-primary"
             />
@@ -63,12 +65,12 @@
     </div>
     <!-- /.card-body -->
   </div>
-  <app-modal
-    v-if="isModal"
-    title="Регистрация"
-    text="Напишите нам на почту мы вам создадим аккаунт для работы в системе. Спасибо вам за то что выбрали наш продукт"
-    @close="isModal = false"
-  />
+  <app-modal v-if="isModal" title="Регистрация" @close="isModal = false">
+    <p>
+      Напишите нам на почту мы вам создадим аккаунт для работы в системе.
+      Спасибо вам за то что выбрали наш продукт
+    </p>
+  </app-modal>
 </template>
 
 <script>
@@ -80,6 +82,8 @@ import AppButton from "../components/ui/AppButton.vue";
 export default {
   setup() {
     const isModal = ref(false);
+
+    document.title = "Войти | Monefy";
 
     return { ...useLoginForm(), isModal };
   },

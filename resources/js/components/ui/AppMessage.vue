@@ -10,7 +10,7 @@
       >
         &times;
       </button>
-      <h5><i class="icon fas fa-ban"></i> {{ message.title }}</h5>
+      <h5><i :class="['icon fas', message.ico]"></i> {{ message.title }}</h5>
       {{ message.text }}
     </div>
   </div>
