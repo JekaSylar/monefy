@@ -86,12 +86,6 @@
     background-color: #fff;
 }
 
-.table__category .fa-edit {
-    color: #28a745 !important;
-    font-size: 1.5rem !important;
-    margin-right: 10px !important;
-}
-
 .table__category .fa-trash {
     color: #dc3545;
     font-size: 1.5rem;

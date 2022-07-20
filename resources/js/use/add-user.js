@@ -1,10 +1,7 @@
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
-import { useStore } from "vuex";
 
 export function useAddUser(func) {
-    const store = useStore();
-
     const { handleSubmit, isSubmitting } = useForm({
         initialValues: {
             is_admin: 0,
@@ -26,7 +23,11 @@ export function useAddUser(func) {
         handleBlur: eBlur,
     } = useField(
         "email",
-        yup.string().trim().email().required("Пожалуйста введите email")
+        yup
+            .string()
+            .trim()
+            .email("Email не корректный")
+            .required("Пожалуйста введите email")
     );
 
     const {
@@ -51,23 +52,7 @@ export function useAddUser(func) {
             .required("Пожалуйста введите Пароль")
     );
 
-    const {
-        value: password_confirmation,
-        errorMessage: pcError,
-        handleBlur: pcBlur,
-    } = useField(
-        "password_confirmation",
-        yup
-            .string()
-            .trim()
-            .required("Пожалуйста введите повторно пароль")
-            .oneOf([yup.ref("password")], "Пароли не совпадают")
-    );
-
     const onSubmit = handleSubmit(func);
-
-    console.log(yup.ref("password"), null);
-    console.log("pas", password);
 
     return {
         isSubmitting,
@@ -83,9 +68,6 @@ export function useAddUser(func) {
         password,
         pError,
         pBlur,
-        password_confirmation,
-        pcError,
-        pcBlur,
         onSubmit,
     };
 }

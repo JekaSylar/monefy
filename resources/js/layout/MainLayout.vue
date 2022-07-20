@@ -6,7 +6,6 @@
     <div class="wrapper">
       <the-navbar @showBar="bars = !bars" />
       <the-sidebar />
-      <app-message />
       <router-view></router-view>
       <the-footer />
       <the-create />
@@ -20,7 +19,7 @@ import TheNavbar from "../components/TheNavbar.vue";
 import TheSidebar from "../components/TheSidebar.vue";
 import TheFooter from "../components/TheFooter.vue";
 import TheCreate from "../components/TheCreate.vue";
-import AppMessage from "../components/ui/AppMessage.vue";
+
 export default {
   setup() {
     const bars = ref(false);
@@ -35,7 +34,6 @@ export default {
     TheSidebar,
     TheFooter,
     TheCreate,
-    AppMessage,
   },
 };
 </script>

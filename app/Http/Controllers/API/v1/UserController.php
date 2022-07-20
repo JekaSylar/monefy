@@ -21,9 +21,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        if (Auth::check()) {
 
-        return UserResource::collection(User::query()->paginate(15));
+            $user_id = Auth::user()->id;
+        }
+
+
+        return UserResource::collection(User::where('is_admin', 1)->paginate(10));
     }
 
     /**
@@ -66,13 +70,15 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
+
+
         $user->update([
 
             'name' => $request->name,
-            'login' => $request->login,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'is_admin' => $request->is_admin
+            'is_admin' => $request->is_admin,
+            'bill' => $request->bill,
         ]);
 
         return $user;

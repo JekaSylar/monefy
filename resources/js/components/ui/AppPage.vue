@@ -1,5 +1,6 @@
 <template>
   <div class="content-wrapper">
+    <app-message />
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -30,8 +31,8 @@
 </template>
 
 <script>
-import App from "../../App.vue";
 import AppBreadcrumb from "../ui/AppBreadcrumb.vue";
+import AppMessage from "../ui/AppMessage.vue";
 export default {
   props: {
     title: {
@@ -44,10 +45,13 @@ export default {
   },
   components: {
     AppBreadcrumb,
-    App,
+    AppMessage,
   },
 };
 </script>
 
-<style>
+<style scoped>
+.app-messager {
+  padding-top: 30px;
+}
 </style>

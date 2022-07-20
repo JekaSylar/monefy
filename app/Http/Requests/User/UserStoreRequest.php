@@ -27,7 +27,7 @@ class UserStoreRequest extends FormRequest
             'login' => 'required|unique:users|max:255',
             'name' => 'required|max:255',
             'email' => 'required|unique:users|email',
-            'password' => 'required|between:6, 255|confirmed',
+            'password' => 'required|between:6, 255',
             'is_admin' => 'boolean|required'
         ];
     }

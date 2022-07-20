@@ -24,9 +24,9 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'password' => 'required|between:6, 255|confirmed',
-            'is_admin' => 'boolean|required'
+            'name' => 'max:255',
+            'password' => 'between:6, 255',
+            'is_admin' => 'boolean'
         ];
     }
 }

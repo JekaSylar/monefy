@@ -3,13 +3,11 @@
     <div class="col-lg-12">
       <div class="add__user">
         <app-button title="Добавить" @click.prevent="isModal = true" />
-        <app-modal
+        <add-user
           v-if="isModal"
-          title="Добавить пользователя"
+          @created="isModal = false"
           @close="isModal = false"
-        >
-          <add-user />
-        </app-modal>
+        />
       </div>
       <app-loader v-if="loader" />
       <div class="card-body p-0" v-else>
@@ -26,7 +24,6 @@ import AppPage from "../components/ui/AppPage.vue";
 import AppLoader from "../components/ui/AppLoader.vue";
 import UserTable from "../components/users/UserTable.vue";
 import AppButton from "../components/ui/AppButton.vue";
-import AppModal from "../components/ui/AppModal.vue";
 import AddUser from "../components/users/AddUser.vue";
 
 export default {
@@ -54,7 +51,6 @@ export default {
     UserTable,
     AppLoader,
     AppButton,
-    AppModal,
     AddUser,
   },
 };
