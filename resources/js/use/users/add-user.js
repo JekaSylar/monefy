@@ -1,5 +1,6 @@
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
+import { generatorPassword } from "../../utils/generatorpassword";
 
 export function useAddUser(func) {
     const { handleSubmit, isSubmitting } = useForm({
@@ -15,19 +16,6 @@ export function useAddUser(func) {
     } = useField(
         "login",
         yup.string().trim().required("Пожалуйста введите Логин")
-    );
-
-    const {
-        value: email,
-        errorMessage: eError,
-        handleBlur: eBlur,
-    } = useField(
-        "email",
-        yup
-            .string()
-            .trim()
-            .email("Email не корректный")
-            .required("Пожалуйста введите email")
     );
 
     const {
@@ -52,6 +40,8 @@ export function useAddUser(func) {
             .required("Пожалуйста введите Пароль")
     );
 
+    password.value = generatorPassword(14);
+
     const onSubmit = handleSubmit(func);
 
     return {
@@ -59,9 +49,6 @@ export function useAddUser(func) {
         login,
         lError,
         lBlur,
-        email,
-        eError,
-        eBlur,
         name,
         nError,
         nBlur,

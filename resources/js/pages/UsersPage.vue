@@ -1,5 +1,6 @@
 <template>
-  <app-page title="Пользователи">
+  <app-loader v-if="loader" />
+  <app-page title="Пользователи" v-else>
     <div class="col-lg-12">
       <div class="add__user">
         <app-button title="Добавить" @click.prevent="isModal = true" />
@@ -9,8 +10,8 @@
           @close="isModal = false"
         />
       </div>
-      <app-loader v-if="loader" />
-      <div class="card-body p-0" v-else>
+
+      <div class="card-body p-0">
         <user-table :users="users" />
       </div>
     </div>
@@ -32,11 +33,11 @@ export default {
     const loader = ref(false);
     const isModal = ref(false);
 
-    const users = computed(() => store.getters["user/getUsers"]);
+    const users = computed(() => store.getters["users/getUsers"]);
 
     onMounted(() => {
       loader.value = true;
-      store.dispatch("user/loaderUsers", 1);
+      store.dispatch("users/loaderUsers", 1);
       loader.value = false;
     });
 
@@ -46,6 +47,14 @@ export default {
       isModal,
     };
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.$store.getters["currentUser/getCurrentUser"].is_admin) {
+        vm.$router.replace({ name: "home" });
+      }
+    });
+  },
+
   components: {
     AppPage,
     UserTable,

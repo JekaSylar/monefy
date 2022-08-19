@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import auth from "./modules/auth";
-import user from "./modules/user";
+import users from "./modules/users";
+import currentUser from "./modules/currentUser";
 
 export default createStore({
     state() {
@@ -9,7 +10,11 @@ export default createStore({
         };
     },
 
-    getters: {},
+    getters: {
+        getMessage(state) {
+            return state.message;
+        },
+    },
 
     mutations: {
         setMessage(state, value) {
@@ -29,5 +34,5 @@ export default createStore({
         },
     },
 
-    modules: { auth, user },
+    modules: { auth, users, currentUser },
 });

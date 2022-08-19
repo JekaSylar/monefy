@@ -14,9 +14,11 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex" v-if="currentUser">
         <div class="info">
-          <router-link to="/user" class="d-block">Евгений</router-link>
+          <router-link to="/user" class="d-block">
+            {{ currentUser.name }}
+          </router-link>
         </div>
       </div>
 
@@ -86,7 +88,7 @@
             </router-link>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item" v-if="currentUser.is_admin === 1">
             <router-link to="/users" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>Пользователи</p>
@@ -108,7 +110,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
@@ -120,20 +122,19 @@ export default {
 
     const router = useRouter();
 
-    const logout = () => {
-      store.commit("auth/logout");
+    const currentUser = computed(
+      () => store.getters["currentUser/getCurrentUser"]
+    );
+
+    const logout = async () => {
+      await store.dispatch("auth/logout");
       router.push("/login");
-      store.dispatch("setMessage", {
-        title: "Внимания!",
-        text: "Вы вышли из системы",
-        type: "alert-info",
-        ico: "fa-info",
-      });
     };
 
     return {
       childMenu,
       logout,
+      currentUser,
     };
   },
 };

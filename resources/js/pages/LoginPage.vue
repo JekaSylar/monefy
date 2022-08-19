@@ -5,6 +5,7 @@
     </div>
     <div class="card-body login__card">
       <form @submit.prevent="onSubmit">
+        <small v-if="lError">{{ lError }}</small>
         <div class="input-group">
           <input
             type="text"
@@ -20,9 +21,8 @@
               <span class="fas fa-user"></span>
             </div>
           </div>
-          <small v-if="lError">{{ lError }}</small>
         </div>
-
+        <small v-if="pError">{{ pError }}</small>
         <div class="input-group">
           <input
             type="password"
@@ -38,7 +38,6 @@
               <span class="fas fa-lock"></span>
             </div>
           </div>
-          <small v-if="pError">{{ pError }}</small>
         </div>
 
         <div class="row">
@@ -75,7 +74,7 @@
 
 <script>
 import { ref } from "vue";
-import { useLoginForm } from "../use/login-form";
+import { useLoginForm } from "../use/auth/login-form";
 import AppModal from "../components/ui/AppModal.vue";
 import AppButton from "../components/ui/AppButton.vue";
 

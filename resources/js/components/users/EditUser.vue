@@ -30,20 +30,6 @@
           />
         </div>
 
-        <div class="input-group">
-          <label>Email:</label>
-          <small v-if="eError">{{ eError }}</small>
-          <input
-            type="email"
-            id="email"
-            :class="['form-control', { 'is-invalid': eError }]"
-            name="email"
-            placeholder="Email"
-            v-model="email"
-            @blur="eBlur"
-          />
-        </div>
-
         <div class="form-group">
           <label>Роль:</label>
           <select class="custom-select" v-model="is_admin" id="is_admin">
@@ -86,7 +72,7 @@
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
-import { useEditUser } from "../../use/edit-user";
+import { useEditUser } from "../../use/users/edit-user";
 import { generatorPassword } from "../../utils/generatorpassword.js";
 import AppModal from "../ui/AppModal.vue";
 import AppButton from "../ui/AppButton.vue";
@@ -108,7 +94,6 @@ export default {
         id: props.user.id,
         login: props.user.login,
         name: value.name,
-        email: value.email,
         bill: value.bill,
         is_admin: is_admin.value,
       };
@@ -116,16 +101,12 @@ export default {
       if (value.password != null && typeof value.password !== "undefined") {
         user.password = value.password;
       }
-
-      await store.dispatch("user/updateUser", user);
+      await store.dispatch("users/updateUser", user);
       emit("close");
     };
 
     const {
       isSubmitting,
-      email,
-      eError,
-      eBlur,
       name,
       nError,
       nBlur,
@@ -144,16 +125,12 @@ export default {
       password.value = newPassword.value;
     };
 
-    email.value = props.user.email;
     name.value = props.user.name;
     bill.value = props.user.bill;
     is_admin.value = props.user.is_admin;
 
     return {
       isSubmitting,
-      email,
-      eError,
-      eBlur,
       name,
       nError,
       nBlur,

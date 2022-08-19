@@ -9,19 +9,6 @@ export function useEditUser(func) {
     });
 
     const {
-        value: email,
-        errorMessage: eError,
-        handleBlur: eBlur,
-    } = useField(
-        "email",
-        yup
-            .string()
-            .trim()
-            .email("Email не корректный")
-            .required("Пожалуйста введите email")
-    );
-
-    const {
         value: name,
         errorMessage: nError,
         handleBlur: nBlur,
@@ -52,9 +39,6 @@ export function useEditUser(func) {
 
     return {
         isSubmitting,
-        email,
-        eError,
-        eBlur,
         name,
         nError,
         nBlur,

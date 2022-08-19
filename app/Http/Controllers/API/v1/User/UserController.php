@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\API\v1;
+namespace App\Http\Controllers\API\v1\User;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\API\v1\User\BaseController;
 use App\Models\User;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\User\UserStoreRequest;
@@ -12,22 +12,21 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+
+class UserController extends BaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
-        if (Auth::check()) {
+        $id = Auth::id();
 
-            $user_id = Auth::user()->id;
-        }
-
-
-        return UserResource::collection(User::where('is_admin', 1)->paginate(10));
+        return UserResource::collection(User::where('id', '!=', $id)->orderBy('id', 'desc')->paginate(10));
     }
 
     /**
@@ -39,14 +38,7 @@ class UserController extends Controller
     public function store(UserStoreRequest $request)
     {
 
-
-        $user = User::create([
-            'name' => $request->name,
-            'login' => $request->login,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'is_admin' => $request->is_admin
-        ]);
+        $user =  $this->service->store($request);
 
         return new UserResource($user);
     }
@@ -57,7 +49,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
     }
 
@@ -70,16 +62,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-
-
-        $user->update([
-
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'is_admin' => $request->is_admin,
-            'bill' => $request->bill,
-        ]);
+        $this->service->update($user, $request);
 
         return $user;
     }

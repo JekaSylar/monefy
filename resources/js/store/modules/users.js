@@ -1,11 +1,20 @@
-import axios from "axios";
+import axios from "../../axios";
 
 export default {
     namespaced: true,
 
     state() {
         return {
-            users: null,
+            users: [
+                {
+                    bill: 0,
+                    email: "",
+                    id: 0,
+                    is_admin: 0,
+                    login: "",
+                    name: "",
+                },
+            ],
         };
     },
     mutations: {
@@ -13,7 +22,7 @@ export default {
             state.users = value;
         },
         addUsers(state, payload) {
-            state.users["data"].push(payload);
+            state.users.data.push(payload);
         },
         removeUser(state, index) {
             delete state.users.data.splice(index, 1);

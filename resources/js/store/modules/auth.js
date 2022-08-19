@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axios";
 
 const TOKEN_KEY = "jwt-token";
 
@@ -33,10 +33,13 @@ export default {
     actions: {
         async login({ commit, dispatch }, payload) {
             try {
-                const { data } = await axios.post("/api/v1/login/", {
+                const res = await axios.get("/sanctum/csrf-cookie");
+                const token = res.config.headers["X-XSRF-TOKEN"];
+                await axios.post("/login/", {
                     ...payload,
+                    "X-XSRF-TOKEN": token,
                 });
-                commit("setToken", data.access_token);
+                commit("setToken", token);
             } catch (e) {
                 dispatch(
                     "setMessage",
@@ -50,6 +53,23 @@ export default {
                 );
                 throw new Error();
             }
+        },
+
+        async logout({ commit, dispatch }) {
+            try {
+                await axios.post("logout");
+                commit("logout");
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Внимания!",
+                        text: "Вы вышли из системы",
+                        type: "alert-info",
+                        ico: "fa-info",
+                    },
+                    { root: true }
+                );
+            } catch (e) {}
         },
     },
 };

@@ -5,7 +5,6 @@
         <tr>
           <th>Логин</th>
           <th>Имя</th>
-          <th>Email</th>
           <th>Роль</th>
           <th style="width: 40px">Действие</th>
         </tr>
@@ -14,9 +13,8 @@
         <tr v-for="(user, idx) in users.data" :key="user.id">
           <td>{{ user.login }}</td>
           <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
           <td>{{ roules(user.is_admin) }}</td>
-          <td>
+          <td class="action__edit_users">
             <a href="#" @click.prevent="infoUserEdit(user)"
               ><i class="fas fa-edit"></i
             ></a>
@@ -61,7 +59,7 @@ export default {
     const userInfo = ref(null);
 
     const getResults = (page = 1) => {
-      store.dispatch("user/loaderUsers", page);
+      store.dispatch("users/loaderUsers", page);
     };
 
     const roules = (value) => {
@@ -80,7 +78,7 @@ export default {
     };
 
     const removeUser = async () => {
-      await store.dispatch("user/removeUser", {
+      await store.dispatch("users/removeUser", {
         id: userId.value,
         index: userIndex.value,
       });
@@ -111,5 +109,9 @@ export default {
   color: #28a745;
   font-size: 1.5rem;
   margin-right: 10px;
+}
+.action__edit_users {
+  display: flex;
+  flex-direction: row;
 }
 </style>

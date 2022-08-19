@@ -2,9 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\v1\AuthController;
-use App\Http\Controllers\API\v1\CategoryIncomeController;
-use App\Http\Controllers\API\v1\UserController;
+use App\Http\Controllers\API\v1\User\UserController;
+use App\Http\Controllers\API\v1\CurrentUser\CurrentUserController;
 
 
 
@@ -20,21 +19,20 @@ use App\Http\Controllers\API\v1\UserController;
 
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+*/
 
 
+Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
+    Route::middleware('admin')->group(function () {
+        Route::apiResources([
+            'users' => UserController::class,
+        ]);
+    });
 
-Route::prefix('v1')->middleware('auth')->group(function () {
-    Route::apiResources([
-        'categoryincomes' => CategoryIncomeController::class,
-        'users' => UserController::class,
-    ]);
-});
-
-Route::group(['prefix' => 'v1'], function () {
-
-    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::get('/user', [CurrentUserController::class, 'index']);
+    Route::put('/user/{user}', [CurrentUserController::class, 'update']);
 });

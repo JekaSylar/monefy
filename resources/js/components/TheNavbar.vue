@@ -12,12 +12,38 @@
         ></a>
       </li>
     </ul>
+
+    <div class="time">{{ date }}</div>
   </nav>
 </template>
 
 <script>
-export default {};
+import { ref, onMounted, onDeactivated } from "vue";
+import { formateDate } from "../utils/formateDate";
+export default {
+  setup() {
+    const date = ref(formateDate(new Date()));
+    const interval = ref(null);
+
+    onMounted(async () => {
+      interval.value = setInterval(() => {
+        date.value = formateDate(new Date());
+      }, 1000);
+    });
+
+    return {
+      date,
+    };
+  },
+};
 </script>
 
 <style>
+.navbar-expand {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+.time {
+  font-weight: 600;
+}
 </style>
