@@ -30,8 +30,6 @@
           role="menu"
           data-accordion="false"
         >
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <router-link to="/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -55,7 +53,10 @@
 
           <li
             class="nav-item"
-            :class="{ 'menu-is-opening menu-open': childMenu }"
+            :class="{
+              'menu-open': childMenu,
+              'menu-is-opening menu-open': activeLink,
+            }"
             @click.prevent="childMenu = !childMenu"
           >
             <a href="#" class="nav-link">
@@ -112,7 +113,7 @@
 <script>
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 export default {
   setup() {
@@ -121,6 +122,15 @@ export default {
     const store = useStore();
 
     const router = useRouter();
+
+    const route = useRoute();
+
+    const activeLink = computed(() => {
+      if (route.name === "income" || route.name === "expense") {
+        return true;
+      }
+      return false;
+    });
 
     const currentUser = computed(
       () => store.getters["currentUser/getCurrentUser"]
@@ -135,6 +145,7 @@ export default {
       childMenu,
       logout,
       currentUser,
+      activeLink,
     };
   },
 };

@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->where('login', $username)->first();
     }
+
+    public function IncomeСategory()
+    {
+        return $this->hasMany(IncomeСategory::class);
+    }
 }

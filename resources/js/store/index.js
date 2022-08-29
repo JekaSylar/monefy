@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import auth from "./modules/auth";
 import users from "./modules/users";
 import currentUser from "./modules/currentUser";
+import incomeСategory from "./modules/incomeСategory";
 
 export default createStore({
     state() {
@@ -34,5 +35,5 @@ export default createStore({
         },
     },
 
-    modules: { auth, users, currentUser },
+    modules: { auth, users, currentUser, incomeСategory },
 });

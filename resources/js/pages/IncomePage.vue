@@ -1,62 +1,39 @@
 <template>
-  <app-page title="Категория доходов">
-    <div class="col-lg-5">
-      <h4 class="title__block-name">Создать Доходов</h4>
-      <form>
-        <input class="form-control" type="text" placeholder="Названия" />
-        <button type="button" class="btn btn__created btn-primary">
-          Создать
-        </button>
-      </form>
-    </div>
-    <div class="col-lg-7">
-      <h4 class="title__block-name">Категории</h4>
-      <div class="card-body p-0">
-        <table class="table table-sm table__category">
-          <thead>
-            <tr>
-              <th style="width: 10px">№</th>
-              <th>Названия</th>
-              <th>Действие</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Зарплата</td>
-              <td>
-                <a href="#"><i class="fas fa-edit"></i></a>
-                <a href="#"><i class="fas fa-trash"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Зарплата</td>
-              <td>
-                <a href="#"><i class="fas fa-edit"></i></a>
-                <a href="#"><i class="fas fa-trash"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Зарплата</td>
-              <td>
-                <a href="#"><i class="fas fa-edit"></i></a>
-                <a href="#"><i class="fas fa-trash"></i></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <app-loader v-if="loader" />
+  <app-page title="Категория доходов" v-else>
+    <add-income />
+    <all-income />
   </app-page>
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
 import AppPage from "../components/ui/AppPage.vue";
+import AllIncome from "../components/incomes/AllIncome.vue";
+import AddIncome from "../components/incomes/AddIncome.vue";
+import AppLoader from "../components/ui/AppLoader.vue";
+
 export default {
+  setup() {
+    const store = useStore();
+    const loader = ref(false);
+
+    onMounted(() => {
+      loader.value = true;
+      store.dispatch("incomeСategory/loaderCategories");
+      loader.value = false;
+    });
+
+    return {
+      loader,
+    };
+  },
   components: {
     AppPage,
+    AllIncome,
+    AppLoader,
+    AddIncome,
   },
 };
 </script>
