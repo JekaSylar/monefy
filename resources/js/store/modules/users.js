@@ -135,7 +135,7 @@ export default {
                     { root: true }
                 );
             } catch (e) {
-                /*dispatch(
+                dispatch(
                     "setMessage",
                     {
                         title: "Ошибка",
@@ -144,7 +144,7 @@ export default {
                         ico: "fa-exclamation-triangle",
                     },
                     { root: true }
-                );*/
+                );
                 console.log(e);
             }
         },
