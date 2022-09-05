@@ -10,7 +10,6 @@ export default {
                 email: "",
                 id: 0,
                 is_admin: 0,
-                login: "",
                 name: "",
             },
         };
@@ -48,17 +47,17 @@ export default {
                     { root: true }
                 );
             } catch (e) {
-                /*dispatch(
+                dispatch(
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: "Сервер не отвечает",
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
                     { root: true }
-                );*/
-                console.log(e);
+                );
+                console.log(e.response.data.message);
             }
         },
 
@@ -66,7 +65,19 @@ export default {
             try {
                 const { data } = await axios.get("api/v1/user");
                 commit("setCurrentUser", data.data);
-            } catch (e) {}
+            } catch (e) {
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Ошибка",
+                        text: e.response.data.message,
+                        type: "alert-danger",
+                        ico: "fa-exclamation-triangle",
+                    },
+                    { root: true }
+                );
+                console.log(e.response.data.message);
+            }
         },
     },
 };

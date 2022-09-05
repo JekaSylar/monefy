@@ -3,6 +3,19 @@
     <div class="modal__form">
       <form @submit.prevent="onSubmit">
         <div class="input-group">
+          <label>Email:</label>
+          <small v-if="eError">{{ eError }}</small>
+          <input
+            type="text"
+            id="email"
+            :class="['form-control', { 'is-invalid': eError }]"
+            name="email"
+            placeholder="Email"
+            v-model="email"
+            @blur="eBlur"
+          />
+        </div>
+        <div class="input-group">
           <label>Имя:</label>
           <small v-if="nError">{{ nError }}</small>
           <input
@@ -92,7 +105,7 @@ export default {
     const updateUser = async (value) => {
       const user = {
         id: props.user.id,
-        login: props.user.login,
+        email: value.email,
         name: value.name,
         bill: value.bill,
         is_admin: is_admin.value,
@@ -110,6 +123,9 @@ export default {
       name,
       nError,
       nBlur,
+      email,
+      eError,
+      eBlur,
       password,
       pError,
       pBlur,
@@ -128,12 +144,16 @@ export default {
     name.value = props.user.name;
     bill.value = props.user.bill;
     is_admin.value = props.user.is_admin;
+    email.value = props.user.email;
 
     return {
       isSubmitting,
       name,
       nError,
       nBlur,
+      email,
+      eError,
+      eBlur,
       password,
       pError,
       pBlur,

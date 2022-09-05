@@ -1,94 +1,104 @@
 <template>
-  <div class="card card-outline card-primary">
-    <div class="card-header text-center">
-      <div class="login__title h1">Monefy</div>
-    </div>
-    <div class="card-body login__card">
-      <form @submit.prevent="onSubmit">
-        <small v-if="lError">{{ lError }}</small>
-        <div class="input-group">
-          <input
-            type="text"
-            id="login"
-            name="login"
-            :class="['form-control', { 'is-invalid': lError }]"
-            placeholder="Логин"
-            @blur="lBlur"
-            v-model="login"
+  <app-auth title="Войти">
+    <form @submit.prevent="onSubmit">
+      <small v-if="eError">{{ eError }}</small>
+      <div class="input-group">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          :class="['form-control', { 'is-invalid': eError }]"
+          placeholder="Email"
+          v-model="email"
+          @blur="eBlur"
+        />
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <span class="fas fa-solid fa-envelope"></span>
+          </div>
+        </div>
+      </div>
+      <small v-if="pError">{{ pError }}</small>
+      <div class="input-group">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          :class="['form-control', { 'is-invalid': pError }]"
+          placeholder="Пароль"
+          v-model="password"
+          @blur="pBlur"
+        />
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <span class="fas fa-lock"></span>
+          </div>
+        </div>
+      </div>
+      <div class="reset__password">
+        <router-link to="resetpassword">Забыли пароль ?</router-link>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="btn-register">
+            <router-link
+              to="register"
+              class="btn-success btn-block btn-register"
+            >
+              Регистрация
+            </router-link>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-6">
+          <button-loader
+            className="btn-block"
+            type="btn-primary"
+            text="Войти"
+            v-if="isLoader"
           />
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <small v-if="pError">{{ pError }}</small>
-        <div class="input-group">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            :class="['form-control', { 'is-invalid': pError }]"
-            placeholder="Пароль"
-            v-model="password"
-            @blur="pBlur"
+          <app-button
+            :disabled="isSubmitting"
+            className="btn-block"
+            title="Войти"
+            type="btn-primary"
+            v-else
           />
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
         </div>
-
-        <div class="row">
-          <div class="col-6">
-            <app-button
-              @click.prevent="isModal = true"
-              title="Регистрация"
-              className="btn-block"
-              type="btn-success"
-            />
-          </div>
-          <!-- /.col -->
-          <div class="col-6">
-            <app-button
-              :disabled="isSubmitting"
-              className="btn-block"
-              title="Войти"
-              type="btn-primary"
-            />
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-    </div>
-    <!-- /.card-body -->
-  </div>
-  <app-modal v-if="isModal" title="Регистрация" @close="isModal = false">
-    <p>
-      Напишите нам на почту мы вам создадим аккаунт для работы в системе.
-      Спасибо вам за то что выбрали наш продукт
-    </p>
-  </app-modal>
+        <!-- /.col -->
+      </div>
+    </form>
+  </app-auth>
 </template>
 
 <script>
 import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import AppAuth from "../components/ui/AppAuth.vue";
 import { useLoginForm } from "../use/auth/login-form";
-import AppModal from "../components/ui/AppModal.vue";
 import AppButton from "../components/ui/AppButton.vue";
+import ButtonLoader from "../components/ui/ButtonLoader.vue";
 
 export default {
   setup() {
-    const isModal = ref(false);
+    const router = useRouter();
+    const store = useStore();
+    const isLoader = ref(false);
 
-    document.title = "Войти | Monefy";
+    const onSubmit = async (value) => {
+      isLoader.value = true;
+      await store.dispatch("auth/login", value);
+      isLoader.value = false;
+      router.push("/");
+    };
 
-    return { ...useLoginForm(), isModal };
+    return { ...useLoginForm(onSubmit), isLoader };
   },
   components: {
-    AppModal,
     AppButton,
+    AppAuth,
+    ButtonLoader,
   },
 };
 </script>
@@ -101,5 +111,25 @@ export default {
 }
 .input-group {
   margin-bottom: 15px;
+}
+.reset__password {
+  margin-bottom: 10px;
+}
+.reset__password a {
+  font-size: 14px;
+}
+.reset__password a:hover {
+  text-decoration: underline;
+}
+
+.btn-register {
+  width: 100%;
+  height: auto;
+}
+
+.btn-register a {
+  padding: 7px;
+  text-align: center;
+  border-radius: 5px;
 }
 </style>

@@ -1,29 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\API\v1\IncomeСategory;
+namespace App\Http\Controllers\API\v1;
 
-use App\Http\Controllers\API\v1\IncomeСategory\BaseController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Http\Resources\UserResource;
+use App\Http\Requests\User\UserStoreRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Models\IncomeСategory;
-use App\Http\Resources\IncomeСategoryResource;
-use App\Http\Requests\IncomeСategory\IncomeСategoryStoreRequest;
-use App\Http\Requests\IncomeСategory\IncomeСategoryUpdateRequest;
+use App\Service\UserService;
 
-
-class IncomeСategoryController extends BaseController
+class UserController extends Controller
 {
+    private $service;
+
+    public function __construct()
+    {
+        $this->service = new UserService();
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $id = Auth::id();
 
-        return IncomeСategoryResource::collection(IncomeСategory::where('user_id', $id)->orderBy('name', 'desc')->get());
+        return UserResource::collection(User::where('id', '!=', $id)->orderBy('id', 'asc')->paginate(10));
     }
 
     /**
@@ -32,12 +40,12 @@ class IncomeСategoryController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(IncomeСategoryStoreRequest $request)
+    public function store(UserStoreRequest $request)
     {
-        $id = Auth::id();
-        $category = $this->service->store($request, $id);
 
-        return $category;
+        $user =  $this->service->store($request);
+
+        return new UserResource($user);
     }
 
     /**
@@ -48,7 +56,6 @@ class IncomeСategoryController extends BaseController
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -58,11 +65,11 @@ class IncomeСategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(IncomeСategoryUpdateRequest $request, IncomeСategory $income)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $newCategory = $this->service->update($income, $request);
+        $user = $this->service->update($user, $request);
 
-        return $newCategory;
+        return $user;
     }
 
     /**
@@ -71,9 +78,9 @@ class IncomeСategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(IncomeСategory $income)
+    public function destroy(User $user)
     {
-        $income->delete();
+        $user->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

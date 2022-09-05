@@ -1,5 +1,5 @@
 <template>
-  <div class="col-lg-7" v-if="incomeСategories">
+  <div class="col-lg-7" v-if="incomeСategories.data?.length">
     <h4 class="title__block-name">Категории</h4>
     <div class="card-body p-0">
       <table class="table table-sm table__category">

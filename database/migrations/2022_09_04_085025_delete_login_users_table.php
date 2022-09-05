@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['email', 'email_verified_at']);
+            $table->dropColumn('login');
         });
     }
 
@@ -27,8 +27,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
 
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('login')->unique();
         });
     }
 };

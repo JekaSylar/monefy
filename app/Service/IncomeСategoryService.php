@@ -3,14 +3,19 @@
 namespace App\Service;
 
 use App\Models\IncomeСategory;
+use Illuminate\Support\Facades\Auth;
+use App\Service\traits\TCurrentUser;
 
 class IncomeСategoryService
 {
-    public function store($request, $user_id)
+    use TCurrentUser;
+
+    public function store($request)
     {
+
         $category = IncomeСategory::create([
             'name' => $request->name,
-            'user_id' => $user_id,
+            'user_id' => $this->CurrentUserID(),
         ]);
 
         return $category;
@@ -19,9 +24,11 @@ class IncomeСategoryService
     public function update($category, $request)
     {
 
-        $category->update([
+        $newCategory = $category->update([
 
             'name' => $request->name,
         ]);
+
+        return $newCategory;
     }
 }

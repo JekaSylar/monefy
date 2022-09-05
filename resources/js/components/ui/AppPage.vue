@@ -1,4 +1,5 @@
 <template>
+  <modal-message />
   <div class="content-wrapper">
     <div class="content-header">
       <div class="container-fluid">
@@ -12,7 +13,6 @@
           </div>
         </div>
         <!-- /.row -->
-        <app-message />
       </div>
       <!-- /.container-fluid -->
     </div>
@@ -32,7 +32,7 @@
 
 <script>
 import AppBreadcrumb from "../ui/AppBreadcrumb.vue";
-import AppMessage from "../ui/AppMessage.vue";
+import ModalMessage from "../ui/ModalMessage.vue";
 export default {
   props: {
     title: {
@@ -45,7 +45,7 @@ export default {
   },
   components: {
     AppBreadcrumb,
-    AppMessage,
+    ModalMessage,
   },
 };
 </script>

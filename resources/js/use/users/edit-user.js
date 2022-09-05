@@ -18,6 +18,19 @@ export function useEditUser(func) {
     );
 
     const {
+        value: email,
+        errorMessage: eError,
+        handleBlur: eBlur,
+    } = useField(
+        "email",
+        yup
+            .string()
+            .trim()
+            .required("Пожалуйста введите Email")
+            .email("Не верный формат Email")
+    );
+
+    const {
         value: bill,
         errorMessage: bError,
         handleBlur: bBlur,
@@ -42,6 +55,9 @@ export function useEditUser(func) {
         name,
         nError,
         nBlur,
+        email,
+        eError,
+        eBlur,
         password,
         pError,
         pBlur,

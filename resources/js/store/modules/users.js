@@ -11,7 +11,6 @@ export default {
                     email: "",
                     id: 0,
                     is_admin: 0,
-                    login: "",
                     name: "",
                 },
             ],
@@ -51,7 +50,7 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: "Сервер не отвечает",
+                        text: e.response.data.messag,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
@@ -79,7 +78,7 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: e,
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
@@ -109,7 +108,7 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: "Сервер не отвечает",
+                        text: e.response.data.messag,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
@@ -139,7 +138,7 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: "Сервер не отвечает",
+                        text: e.response.data.messag,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },

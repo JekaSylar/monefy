@@ -10,12 +10,16 @@ export function useAddUser(func) {
     });
 
     const {
-        value: login,
-        errorMessage: lError,
-        handleBlur: lBlur,
+        value: email,
+        errorMessage: eError,
+        handleBlur: eBlur,
     } = useField(
-        "login",
-        yup.string().trim().required("Пожалуйста введите Логин")
+        "email",
+        yup
+            .string()
+            .trim()
+            .required("Пожалуйста введите Email")
+            .email("Неверный формат email")
     );
 
     const {
@@ -40,21 +44,24 @@ export function useAddUser(func) {
             .required("Пожалуйста введите Пароль")
     );
 
+    const { value: is_admin } = useField("is_admin");
+
     password.value = generatorPassword(14);
 
     const onSubmit = handleSubmit(func);
 
     return {
         isSubmitting,
-        login,
-        lError,
-        lBlur,
+        email,
+        eError,
+        eBlur,
         name,
         nError,
         nBlur,
         password,
         pError,
         pBlur,
+        is_admin,
         onSubmit,
     };
 }

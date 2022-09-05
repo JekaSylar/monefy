@@ -9,6 +9,9 @@ const ExpensePage = () => import("../pages/ExpensePage.vue");
 const CheckPage = () => import("../pages/CheckPage.vue");
 const UsersPage = () => import("../pages/UsersPage.vue");
 const UserPage = () => import("../pages/UserPage.vue");
+const RegisterPage = () => import("../pages/RegisterPage.vue");
+const ResetPasswordPage = () => import("../pages/ResetPasswordPage.vue");
+const ResetNewPasswordPage = () => import("../pages/ResetNewPasswordPage.vue");
 
 const routes = [
     {
@@ -17,6 +20,27 @@ const routes = [
         meta: { layout: "auth", auth: false },
         component: LoginPage,
     },
+    {
+        path: "/register",
+        name: "register",
+        meta: { layout: "auth", auth: false },
+        component: RegisterPage,
+    },
+
+    {
+        path: "/resetpassword",
+        name: "resetpassword",
+        meta: { layout: "auth", auth: false },
+        component: ResetPasswordPage,
+    },
+
+    {
+        path: "/password/reset/:token",
+        name: "newpassword",
+        meta: { layout: "auth", auth: false },
+        component: ResetNewPasswordPage,
+    },
+
     {
         path: "/",
         name: "home",

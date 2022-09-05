@@ -43,13 +43,12 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: "Сервер не отвечает",
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
                     { root: true }
                 );
-                throw new Error();
             }
         },
         async createdCategory({ commit, dispatch }, category) {
@@ -71,7 +70,7 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: e,
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
@@ -100,7 +99,7 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: "Сервер не отвечает",
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
@@ -126,17 +125,17 @@ export default {
                     { root: true }
                 );
             } catch (e) {
-                /*dispatch(
+                dispatch(
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: "Сервер не отвечает",
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
                     { root: true }
-                );*/
-                console.log(e);
+                );
+                console.log(e.response.data.message);
             }
         },
     },

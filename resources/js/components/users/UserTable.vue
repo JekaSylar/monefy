@@ -3,7 +3,7 @@
     <table class="table table__category">
       <thead class="table-light">
         <tr>
-          <th>Логин</th>
+          <th>Email</th>
           <th>Имя</th>
           <th>Роль</th>
           <th style="width: 40px">Действие</th>
@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr v-for="(user, idx) in users.data" :key="user.id">
-          <td>{{ user.login }}</td>
+          <td>{{ user.email }}</td>
           <td>{{ user.name }}</td>
           <td>{{ roules(user.is_admin) }}</td>
           <td class="action__edit_users">

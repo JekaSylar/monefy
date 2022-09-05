@@ -2,9 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\v1\User\UserController;
-use App\Http\Controllers\API\v1\CurrentUser\CurrentUserController;
-use App\Http\Controllers\API\v1\IncomeСategory\IncomeСategoryController;
+use App\Http\Controllers\API\v1\UserController;
+use App\Http\Controllers\API\v1\CurrentUserController;
+use App\Http\Controllers\API\v1\IncomeСategoryController;
 
 
 
@@ -25,6 +25,8 @@ use App\Http\Controllers\API\v1\IncomeСategory\IncomeСategoryController;
 });
 
 */
+
+
 
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {

@@ -45,13 +45,89 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: "Неверный логин или пароль!",
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
                     { root: true }
                 );
                 throw new Error();
+            }
+        },
+
+        async registerUser({ dispatch }, payload) {
+            try {
+                const res = await axios.get("/sanctum/csrf-cookie");
+                const token = res.config.headers["X-XSRF-TOKEN"];
+                await axios.post("/register/", {
+                    ...payload,
+                    "X-XSRF-TOKEN": token,
+                });
+                await dispatch("login", {
+                    email: payload.email,
+                    password: payload.password,
+                });
+                return true;
+            } catch (e) {
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Ошибка",
+                        text: e.response.data.message,
+                        type: "alert-danger",
+                        ico: "fa-exclamation-triangle",
+                    },
+                    { root: true }
+                );
+                console.log(e.response.data.message);
+            }
+        },
+
+        async resetPassword({ dispatch }, payload) {
+            try {
+                const res = await axios.get("/sanctum/csrf-cookie");
+                const token = res.config.headers["X-XSRF-TOKEN"];
+                await axios.post("/password/email/", {
+                    ...payload,
+                    "X-XSRF-TOKEN": token,
+                });
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Востановления пароля",
+                        text: "Мы отправили ссылку для сброса пароля по электронной почте!",
+                        type: "alert-success",
+                        ico: "fa-check",
+                    },
+                    { root: true }
+                );
+                return true;
+            } catch (e) {
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Востановления пароля",
+                        text: e.response.data.message,
+                        type: "alert-danger",
+                        ico: "fa-exclamation-triangle",
+                    },
+                    { root: true }
+                );
+                console.log(e.response.data.message);
+            }
+        },
+
+        async resetNewPassword({ dispatch }, payload) {
+            try {
+                const res = await axios.get("/sanctum/csrf-cookie");
+                const token = res.config.headers["X-XSRF-TOKEN"];
+                await axios.post("/password/reset/", {
+                    ...payload,
+                    "X-XSRF-TOKEN": token,
+                });
+                return true;
+            } catch (e) {
+                console.log(e.response.data.message);
             }
         },
 
@@ -69,7 +145,19 @@ export default {
                     },
                     { root: true }
                 );
-            } catch (e) {}
+            } catch (e) {
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Ошибка",
+                        text: e.response.data.message,
+                        type: "alert-danger",
+                        ico: "fa-exclamation-triangle",
+                    },
+                    { root: true }
+                );
+                console.log(e.response.data.message);
+            }
         },
     },
 };

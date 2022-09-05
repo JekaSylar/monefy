@@ -2,17 +2,17 @@
   <app-modal title="Добавить пользователя" @close="$emit('close')">
     <div class="modal__form">
       <form @submit.prevent="onSubmit">
-        <label>Логин:</label>
-        <small v-if="lError">{{ lError }}</small>
+        <label>Email:</label>
+        <small v-if="eError">{{ eError }}</small>
         <div class="input-group">
           <input
             type="text"
-            id="login"
-            :class="['form-control', { 'is-invalid': lError }]"
-            name="login"
-            placeholder="Логин"
-            v-model="login"
-            @blur="lBlur"
+            id="email"
+            :class="['form-control', { 'is-invalid': eError }]"
+            name="email"
+            placeholder="Email"
+            v-model="email"
+            @blur="eBlur"
           />
         </div>
         <label>Имя:</label>
@@ -43,7 +43,12 @@
         </div>
         <label>Роль:</label>
         <div class="form-group">
-          <select class="custom-select" id="is_admin">
+          <select
+            class="custom-select"
+            v-model="is_admin"
+            id="is_admin"
+            name="is_admin"
+          >
             <option value="0">Пользватель</option>
             <option value="1">Администратор</option>
           </select>
@@ -86,5 +91,9 @@ export default {
 }
 .modal__form small {
   color: brown;
+}
+small,
+label {
+  width: 100%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <app-page title="Редактирования личныйх данных">
+  <app-page title="Редактирования личных данных">
     <div class="col-lg-4" v-if="user">
       <form @submit.prevent="onSubmit">
         <div class="form-group">
@@ -10,6 +10,15 @@
             type="text"
             v-model="name"
             @blur="nBlur"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleSelectBorder">Email:</label>
+          <input
+            class="form-control"
+            type="email"
+            :value="user.email"
+            disabled
           />
         </div>
         <div class="form-group">

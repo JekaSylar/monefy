@@ -11,7 +11,7 @@ requestAxios.interceptors.response.use(null, (err) => {
         store.commit("auth/logout");
         router.push("/login?message=auth");
     }
-    return Promise.reject(error);
+    return Promise.reject(err);
 });
 
 export default requestAxios;

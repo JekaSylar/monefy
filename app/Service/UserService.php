@@ -15,6 +15,7 @@ class UserService
 
                 'name' => $request->name,
                 'password' => Hash::make($request->password),
+                'email' =>  $request->email,
                 'is_admin' => $request->is_admin,
                 'bill' => $request->bill,
             ]);
@@ -23,6 +24,7 @@ class UserService
 
                 'name' => $request->name,
                 'is_admin' => $request->is_admin,
+                'email' =>  $request->email,
                 'bill' => $request->bill,
             ]);
         }
@@ -32,7 +34,7 @@ class UserService
     {
         $user = User::create([
             'name' => $request->name,
-            'login' => $request->login,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
             'is_admin' => $request->is_admin
         ]);

@@ -30,7 +30,6 @@ export function useEditOneUser() {
     const onSubmit = handleSubmit(async (values) => {
         const updateUser = {
             id: user.value.id,
-            login: user.value.login,
             name: values.name,
             bill: user.value.bill,
             is_admin: user.value.is_admin,

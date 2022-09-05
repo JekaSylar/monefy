@@ -5,13 +5,15 @@
       <router-view></router-view>
     </div>
   </div>
+  <the-help />
 </template>
 
 <script>
 import AppMessage from "../components/ui/AppMessage.vue";
+import TheHelp from "../components/TheHelp.vue";
 
 export default {
-  components: { AppMessage },
+  components: { AppMessage, TheHelp },
 };
 </script>
 
