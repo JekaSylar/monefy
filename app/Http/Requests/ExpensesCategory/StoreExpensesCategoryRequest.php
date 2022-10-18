@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\IncomeСategory;
+namespace App\Http\Requests\ExpensesCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IncomeСategoryStoreRequest extends FormRequest
+class StoreExpensesCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class IncomeСategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required'
         ];
     }
 }

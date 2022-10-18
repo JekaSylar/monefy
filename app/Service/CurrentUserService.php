@@ -11,17 +11,22 @@ class CurrentUserService
 
     public function update($user, $request)
     {
+
         if ($request->password != null) {
-            $request->update([
+            $update_user =  $user->update([
 
                 'name' => $request->name,
                 'password' => Hash::make($request->password),
             ]);
+
+            return $update_user;
         } else {
-            $user->update([
+            $update_user =  $user->update([
 
                 'name' => $request->name,
             ]);
+
+            return $update_user;
         }
     }
 }

@@ -11,6 +11,18 @@ export default {
                 id: 0,
                 is_admin: 0,
                 name: "",
+                expensesCategories: [
+                    {
+                        id: 0,
+                        name: "",
+                    },
+                ],
+                incomesCategories: [
+                    {
+                        id: 0,
+                        name: "",
+                    },
+                ],
             },
         };
     },
@@ -61,8 +73,9 @@ export default {
             }
         },
 
-        async currentUser({ commit }) {
+        async loaderUser({ commit }) {
             try {
+                commit("loader/setLoader", true, { root: true });
                 const { data } = await axios.get("api/v1/user");
                 commit("setCurrentUser", data.data);
             } catch (e) {
@@ -77,6 +90,8 @@ export default {
                     { root: true }
                 );
                 console.log(e.response.data.message);
+            } finally {
+                commit("loader/setLoader", false, { root: true });
             }
         },
     },

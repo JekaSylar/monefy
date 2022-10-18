@@ -18,6 +18,7 @@
         <div class="info">
           <router-link to="/user" class="d-block">
             {{ currentUser.name }}
+            ( <span class="bill">{{ currentUser.bill }} ₴</span>)
           </router-link>
         </div>
       </div>
@@ -68,13 +69,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/income" class="nav-link">
+                <router-link to="/incomes" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Доходы</p>
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/expense" class="nav-link">
+                <router-link to="/expenses" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Расходы</p>
                 </router-link>
@@ -83,7 +84,7 @@
           </li>
 
           <li class="nav-item">
-            <router-link to="/check" class="nav-link">
+            <router-link to="/checks" class="nav-link">
               <i class="nav-icon fas fa-money-bill"></i>
               <p>Счет</p>
             </router-link>
@@ -126,7 +127,7 @@ export default {
     const route = useRoute();
 
     const activeLink = computed(() => {
-      if (route.name === "income" || route.name === "expense") {
+      if (route.name === "incomes" || route.name === "expenses") {
         return true;
       }
       return false;
@@ -162,5 +163,11 @@ export default {
 .nav-link a:hover {
   background-color: #007bff !important;
   color: #fff !important;
+}
+.bill {
+  color: #28a745;
+  margin: 0 5px;
+  font-size: 18px;
+  font-weight: 700;
 }
 </style>

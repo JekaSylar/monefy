@@ -52,4 +52,6 @@ $app->singleton(
 |
 */
 
+$app->register(EloquentFilter\LumenServiceProvider::class);
+
 return $app;

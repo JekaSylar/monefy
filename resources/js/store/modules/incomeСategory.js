@@ -36,6 +36,7 @@ export default {
     actions: {
         async loaderCategories({ commit, dispatch }) {
             try {
+                commit("loader/setLoader", true, { root: true });
                 const { data } = await axios.get("api/v1/incomes");
                 commit("setIncomeCategory", data);
             } catch (e) {
@@ -49,12 +50,16 @@ export default {
                     },
                     { root: true }
                 );
+            } finally {
+                commit("loader/setLoader", false, { root: true });
             }
         },
         async createdCategory({ commit, dispatch }, category) {
             try {
-                await axios.post("api/v1/incomes", { ...category });
-                commit("addCategory", category);
+                const { data } = await axios.post("api/v1/incomes", {
+                    ...category,
+                });
+                commit("addCategory", data.data);
                 dispatch(
                     "setMessage",
                     {
@@ -107,9 +112,9 @@ export default {
                 );
             }
         },
-        async updateUser({ commit, dispatch }, category) {
+        async updateIncome({ commit, dispatch }, category) {
             try {
-                await axios.put("api/v1/incomes/" + category.id, {
+                await axios.post("api/v1/incomes/" + category.id, {
                     _method: "PUT",
                     ...category,
                 });

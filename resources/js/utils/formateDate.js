@@ -1,13 +1,7 @@
-function formateDate(date) {
-    const options = {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-    };
-    return new Intl.DateTimeFormat("ru-RU", options).format(date);
+import moment from "moment";
+
+function formateDate(date, format = "DD.MM.YYYY") {
+    return moment(date).format(format);
 }
 
 export { formateDate };

@@ -47,13 +47,19 @@ class User extends Authenticatable implements CanResetPassword
         'email_verified_at' => 'datetime',
     ];
 
-    public function findForPassport($username)
-    {
-        return $this->where('login', $username)->first();
-    }
 
-    public function IncomeСategory()
+    public function IncomesСategories()
     {
         return $this->hasMany(IncomeСategory::class);
+    }
+
+    public function ExpensesCategories()
+    {
+        return $this->hasMany(ExpensesCategory::class);
+    }
+
+    public function records()
+    {
+        return $this->hasMany(Record::class);
     }
 }

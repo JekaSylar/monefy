@@ -61,21 +61,21 @@ const routes = [
     },
     //Доходы
     {
-        path: "/income",
-        name: "income",
+        path: "/incomes",
+        name: "incomes",
         meta: { layout: "main", auth: true },
         component: IncomePage,
     },
     //Расходы
     {
-        path: "/expense",
-        name: "expense",
+        path: "/expenses",
+        name: "expenses",
         meta: { layout: "main", auth: true },
         component: ExpensePage,
     },
     {
-        path: "/check",
-        name: "check",
+        path: "/checks",
+        name: "checks",
         meta: { layout: "main", auth: true },
         component: CheckPage,
     },

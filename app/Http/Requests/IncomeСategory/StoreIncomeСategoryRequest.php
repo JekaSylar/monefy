@@ -4,7 +4,7 @@ namespace App\Http\Requests\IncomeСategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IncomeСategoryUpdateRequest extends FormRequest
+class StoreIncomeСategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class IncomeСategoryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
         ];
     }
 }

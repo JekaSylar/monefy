@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\IncomeСategoryResource;
+use App\Http\Resources\ExpensesCategoryResource;
 
 class CurrentUserResource extends JsonResource
 {
@@ -19,6 +21,9 @@ class CurrentUserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'is_admin' => $this->is_admin,
+            'bill' => $this->bill,
+            'incomesCategories' =>  IncomeСategoryResource::collection($this->IncomesСategories),
+            'expensesCategories' =>  ExpensesCategoryResource::collection($this->ExpensesCategories),
         ];
     }
 }

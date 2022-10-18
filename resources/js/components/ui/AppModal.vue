@@ -23,8 +23,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
-
 export default {
   props: {
     title: {
@@ -33,15 +31,6 @@ export default {
     },
   },
   emits: ["close"],
-  setup() {
-    const isModal = ref(false);
-
-    const close = () => {
-      isModal.value = false;
-    };
-
-    return { close, isModal };
-  },
 };
 </script>
 

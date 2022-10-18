@@ -47,7 +47,8 @@ export default {
         id: props.category.id,
         name: value.name,
       };
-      await store.dispatch("incomeСategory/updateUser", category);
+      await store.dispatch("incomeСategory/updateIncome", category);
+
       emit("close");
     };
 

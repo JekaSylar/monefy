@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\CurrentUserController;
 use App\Http\Controllers\API\v1\IncomeСategoryController;
+use App\Http\Controllers\API\v1\ExpensesCategoryController;
+use App\Http\Controllers\API\v1\RecordController;
 
 
 
@@ -38,9 +40,14 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
 
     Route::get('/user', [CurrentUserController::class, 'index']);
     Route::put('/user/{user}', [CurrentUserController::class, 'update']);
-
     //Категории доходов IncomeСategoryController
     Route::apiResources([
         'incomes' => IncomeСategoryController::class,
+        'expenses' => ExpensesCategoryController::class,
+        'records' => RecordController::class
     ]);
+    //Поиск по записям
+    Route::post('records/filter', [RecordController::class, 'filter']);
 });
+
+//

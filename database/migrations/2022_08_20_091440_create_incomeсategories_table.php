@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('incomeсategories', function (Blueprint $table) {
+        Schema::create('income_сategories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->foreignId('user_id')
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('incomeсategories');
+        Schema::dropIfExists('income_сategories');
     }
 };

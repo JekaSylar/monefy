@@ -14,5 +14,8 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
+.spinner-border {
+  margin: 250px 150px !important;
+}
 </style>

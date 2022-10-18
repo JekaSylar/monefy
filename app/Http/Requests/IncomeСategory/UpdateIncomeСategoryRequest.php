@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\IncomeСategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class UpdateIncomeСategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:255',
-            'password' => 'between:6, 255',
-            'is_admin' => 'boolean'
+            'name' => 'required'
         ];
     }
 }

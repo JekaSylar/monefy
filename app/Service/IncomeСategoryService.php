@@ -18,7 +18,7 @@ class IncomeСategoryService
             'user_id' => $this->CurrentUserID(),
         ]);
 
-        return $category;
+        return  $category;
     }
 
     public function update($category, $request)

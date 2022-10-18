@@ -15,16 +15,16 @@ class IncomeСategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('incomeсategories')->insert([
+        DB::table('income_сategories')->insert([
             'name' => 'Зарплата',
             'user_id' => '1',
         ]);
-        DB::table('incomeсategories')->insert([
+        DB::table('income_сategories')->insert([
             'name' => 'Фриланс',
             'user_id' => '1',
         ]);
 
-        DB::table('incomeсategories')->insert([
+        DB::table('income_сategories')->insert([
             'name' => 'Пенсия',
             'user_id' => '1',
         ]);

@@ -7,8 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\IncomeСategory;
 use App\Http\Resources\IncomeСategoryResource;
-use App\Http\Requests\IncomeСategory\IncomeСategoryStoreRequest;
-use App\Http\Requests\IncomeСategory\IncomeСategoryUpdateRequest;
+use App\Http\Requests\IncomeСategory\StoreIncomeСategoryRequest;
+use App\Http\Requests\IncomeСategory\UpdateIncomeСategoryRequest;
 use App\Service\IncomeСategoryService;
 
 
@@ -39,14 +39,14 @@ class IncomeСategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(IncomeСategoryStoreRequest $request)
+    public function store(StoreIncomeСategoryRequest $request)
     {
 
 
         $category  = $this->service->store($request);
 
 
-        return $category;
+        return new IncomeСategoryResource($category);
     }
 
     /**
@@ -67,7 +67,7 @@ class IncomeСategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(IncomeСategoryUpdateRequest $request, IncomeСategory $income)
+    public function update(UpdateIncomeСategoryRequest $request, IncomeСategory $income)
     {
         $newCategory = $this->service->update($income, $request);
 

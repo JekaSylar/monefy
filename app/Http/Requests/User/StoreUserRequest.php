@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\CurrentUser;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CurrentUserUpdateRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,9 @@ class CurrentUserUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'password' => 'between:6, 255',
+            'email' => 'email|required|unique:users',
+            'password' => 'required|between:6, 255',
+            'is_admin' => 'boolean'
         ];
     }
 }

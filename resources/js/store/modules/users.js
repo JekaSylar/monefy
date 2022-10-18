@@ -41,6 +41,7 @@ export default {
     actions: {
         async loaderUsers({ commit, dispatch }, current) {
             try {
+                commit("loader/setLoader", true, { root: true });
                 const { data } = await axios.get(
                     `api/v1/users${current ? `?page=${current}` : ""}`
                 );
@@ -50,19 +51,20 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: e.response.data.messag,
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
                     { root: true }
                 );
-                throw new Error();
+            } finally {
+                commit("loader/setLoader", false, { root: true });
             }
         },
         async createUser({ commit, dispatch }, user) {
             try {
-                await axios.post("api/v1/users", { ...user });
-                commit("addUsers", user);
+                const { data } = await axios.post("api/v1/users", { ...user });
+                commit("addUsers", data.data);
                 dispatch(
                     "setMessage",
                     {
@@ -108,7 +110,7 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: e.response.data.messag,
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },
@@ -138,7 +140,7 @@ export default {
                     "setMessage",
                     {
                         title: "Ошибка",
-                        text: e.response.data.messag,
+                        text: e.response.data.message,
                         type: "alert-danger",
                         ico: "fa-exclamation-triangle",
                     },

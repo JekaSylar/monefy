@@ -3,6 +3,9 @@ import auth from "./modules/auth";
 import users from "./modules/users";
 import currentUser from "./modules/currentUser";
 import incomeСategory from "./modules/incomeСategory";
+import expensesCategory from "./modules/expensesCategory";
+import record from "./modules/record";
+import loader from "./modules/loader";
 
 export default createStore({
     state() {
@@ -35,5 +38,13 @@ export default createStore({
         },
     },
 
-    modules: { auth, users, currentUser, incomeСategory },
+    modules: {
+        auth,
+        users,
+        currentUser,
+        incomeСategory,
+        expensesCategory,
+        record,
+        loader,
+    },
 });

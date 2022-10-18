@@ -19,15 +19,15 @@
 
 <script>
 import { ref, onMounted, onDeactivated } from "vue";
-import { formateDate } from "../utils/formateDate";
+import { formateTimes } from "../utils/formateTimes";
 export default {
   setup() {
-    const date = ref(formateDate(new Date()));
+    const date = ref(formateTimes(new Date()));
     const interval = ref(null);
 
     onMounted(async () => {
       interval.value = setInterval(() => {
-        date.value = formateDate(new Date());
+        date.value = formateTimes(new Date());
       }, 1000);
     });
 

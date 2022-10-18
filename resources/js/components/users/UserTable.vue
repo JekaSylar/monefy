@@ -1,5 +1,5 @@
 <template>
-  <div class="table-responsive-md" v-if="users">
+  <div class="table-responsive-md" v-if="users.data?.length">
     <table class="table table__category">
       <thead class="table-light">
         <tr>
@@ -58,8 +58,8 @@ export default {
     const userIndex = ref(null);
     const userInfo = ref(null);
 
-    const getResults = (page = 1) => {
-      store.dispatch("users/loaderUsers", page);
+    const getResults = async (page = 1) => {
+      await store.dispatch("users/loaderUsers", page);
     };
 
     const roules = (value) => {
