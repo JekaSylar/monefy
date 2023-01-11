@@ -6,6 +6,10 @@ import incomeСategory from "./modules/incomeСategory";
 import expensesCategory from "./modules/expensesCategory";
 import record from "./modules/record";
 import loader from "./modules/loader";
+import bank from "./modules/bank";
+import currentSumma from "./modules/currentSumma";
+import check from "./modules/check";
+import home from "./modules/home";
 
 export default createStore({
     state() {
@@ -46,5 +50,9 @@ export default createStore({
         expensesCategory,
         record,
         loader,
+        bank,
+        currentSumma,
+        check,
+        home,
     },
 });

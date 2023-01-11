@@ -6,10 +6,12 @@
       @reset="resetFilter"
       :status="isStatus"
     />
-    <app-loader v-if="isLoader" />
 
-    <table class="table table__category" v-if="records.data?.length">
-      <thead>
+    <table
+      class="table table__category table-striped table-bordered"
+      v-if="records.data?.length"
+    >
+      <thead class="table-dark">
         <tr>
           <th style="width: 10px">№</th>
           <th>Описание</th>
@@ -68,7 +70,6 @@ import { formateDate } from "../../utils/formateDate";
 import TypeRecord from "./TypeRecord.vue";
 import LaravelVuePagination from "laravel-vue-pagination";
 import FilterRecords from "./FilterRecords.vue";
-import AppLoader from "../ui/AppLoader.vue";
 import AppDelete from "../ui/AppDelete.vue";
 import EditRecord from "./EditRecord.vue";
 
@@ -77,7 +78,7 @@ export default {
   setup() {
     const store = useStore();
     const user = computed(() => store.getters["currentUser/getCurrentUser"]);
-    const isLoader = ref(false);
+
     const isStatus = ref(false);
     const categories = ref({
       incomes: user.value.incomesCategories,
@@ -101,19 +102,11 @@ export default {
     };
 
     const searchFilter = async (value) => {
-      isStatus.value = true;
-      isLoader.value = true;
       await store.dispatch("record/filter", value);
-      isLoader.value = false;
-      isStatus.value = false;
     };
 
     const resetFilter = async (page = 1) => {
-      isStatus.value = true;
-      isLoader.value = true;
       await store.dispatch("record/loaderRecords", page);
-      isLoader.value = false;
-      isStatus.value = false;
     };
 
     const infoRecordRemove = (id, index) => {
@@ -140,7 +133,6 @@ export default {
       formateDate,
       searchFilter,
       resetFilter,
-      isLoader,
       categories,
       isStatus,
       isModalRemove,
@@ -157,7 +149,6 @@ export default {
     "app-pagination": LaravelVuePagination,
     TypeRecord,
     FilterRecords,
-    AppLoader,
     AppDelete,
     EditRecord,
   },

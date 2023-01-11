@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onDeactivated } from "vue";
+import { ref, onMounted } from "vue";
 import { formateTimes } from "../utils/formateTimes";
 export default {
   setup() {

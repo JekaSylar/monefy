@@ -21,6 +21,6 @@ class IncomeСategory extends Model
 
     public function records()
     {
-        return $this->hasMany(Record::class);
+        return $this->hasMany(Record::class,  'income_сategory_id', 'id');
     }
 }

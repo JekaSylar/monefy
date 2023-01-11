@@ -8,7 +8,7 @@ export function useEditRecord(func, record) {
         value: description,
         errorMessage: dError,
         handleBlur: dBlur,
-    } = useField("description", yup.string().trim());
+    } = useField("description", yup.string().trim().nullable());
 
     const {
         value: summa,

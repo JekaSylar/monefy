@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 
 
 
+
 class User extends Authenticatable implements CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable;

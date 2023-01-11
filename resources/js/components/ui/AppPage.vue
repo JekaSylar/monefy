@@ -11,7 +11,7 @@
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
-              <app-breadcrumb :title="title" />
+              <app-breadcrumb :title="title" :links="links" />
             </div>
           </div>
           <!-- /.row -->
@@ -45,6 +45,9 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+    links: {
+      type: Object,
     },
   },
   setup(props) {

@@ -19,7 +19,6 @@ export default {
       if (Object.keys(user.value.name) === "") {
         await store.dispatch("currentUser/loaderUser");
       }
-      //await store.dispatch("currentUser/loaderUser");
     });
 
     return {

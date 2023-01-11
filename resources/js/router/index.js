@@ -12,6 +12,9 @@ const UserPage = () => import("../pages/UserPage.vue");
 const RegisterPage = () => import("../pages/RegisterPage.vue");
 const ResetPasswordPage = () => import("../pages/ResetPasswordPage.vue");
 const ResetNewPasswordPage = () => import("../pages/ResetNewPasswordPage.vue");
+const CategoryIncomePage = () => import("../pages/CategoryIncomePage.vue");
+const CategoryExpensePage = () => import("../pages/CategoryExpensePage.vue");
+const RecordPage = () => import("../pages/RecordPage.vue");
 
 const routes = [
     {
@@ -54,10 +57,17 @@ const routes = [
         component: СreatePage,
     },
     {
-        path: "/history",
+        path: "/records",
         name: "history",
         meta: { layout: "main", auth: true },
         component: HistoryPage,
+    },
+
+    {
+        path: "/records/:id",
+        name: "record",
+        meta: { layout: "main", auth: true },
+        component: RecordPage,
     },
     //Доходы
     {
@@ -66,6 +76,15 @@ const routes = [
         meta: { layout: "main", auth: true },
         component: IncomePage,
     },
+
+    //Категория дохов
+    {
+        path: "/incomes/:id",
+        name: "category_incomes",
+        meta: { layout: "main", auth: true },
+        component: CategoryIncomePage,
+    },
+
     //Расходы
     {
         path: "/expenses",
@@ -73,6 +92,14 @@ const routes = [
         meta: { layout: "main", auth: true },
         component: ExpensePage,
     },
+    //Категория расходов
+    {
+        path: "/expenses/:id",
+        name: "category_expenses",
+        meta: { layout: "main", auth: true },
+        component: CategoryExpensePage,
+    },
+
     {
         path: "/checks",
         name: "checks",

@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Checks;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\ExpensesCategoryResource;
-use App\Http\Resources\IncomeСategoryResource;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\Checks\CategoryResource;
+use App\Models\Record;
+use App\Http\Resources\Checks\SummaResource;
+use App\Models\IncomeСategory;
 
-class RecordResource extends JsonResource
+
+class CheckResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,13 +20,17 @@ class RecordResource extends JsonResource
     public function toArray($request)
     {
         return [
+
             'id' => $this->id,
             'description' => $this->description,
             'summa' => $this->summa,
             'type' => $this->type,
             'date' => $this->date,
-            'incomeСategory' => new IncomeСategoryResource($this->incomeСategory),
-            'expenseCategory' => new ExpensesCategoryResource($this->expenseCategory),
+            'user_id' => $this->user_id,
+            'incomeCategory' => new CategoryResource($this->incomeСategory),
+            'expenseCategory' => new CategoryResource($this->expenseCategory),
+
+
         ];
     }
 }

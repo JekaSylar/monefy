@@ -1,12 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\API\v1\CurrentUserController;
 use App\Http\Controllers\API\v1\IncomeСategoryController;
 use App\Http\Controllers\API\v1\ExpensesCategoryController;
 use App\Http\Controllers\API\v1\RecordController;
+use App\Http\Controllers\API\v1\HomeController;
+use App\Http\Controllers\api\v1\CheckController;
+use App\Http\Controllers\api\v1\CurrencyController;
 
 
 
@@ -48,6 +50,18 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     ]);
     //Поиск по записям
     Route::post('records/filter', [RecordController::class, 'filter']);
-});
 
-//
+    //Курс валют
+    Route::get('currency', [CurrencyController::class, 'Privatbank']);
+
+    //Главная страница
+    Route::get('index', [HomeController::class, 'index']);
+
+
+
+    //Счет страница
+    Route::get('checks/check', [CheckController::class, 'check']);
+    Route::get('checks/years/{year}', [CheckController::class, 'filterYears']);
+    Route::get('checks/month/{month}/{year}', [CheckController::class, 'filterMonth']);
+    Route::get('checks/date/{dateStart}/{dateEnd}', [CheckController::class, 'filterPeriod']);
+});

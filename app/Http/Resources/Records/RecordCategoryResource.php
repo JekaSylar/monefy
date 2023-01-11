@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Records;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ExpensesCategoryResource extends JsonResource
+class RecordCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,9 @@ class ExpensesCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'description' => $this->description,
+            'summa' => $this->summa,
+            'date' => $this->date,
         ];
     }
 }

@@ -46,7 +46,7 @@
           </li>
 
           <li class="nav-item">
-            <router-link to="/history" class="nav-link">
+            <router-link to="/records" class="nav-link">
               <i class="nav-icon fas fa-history"></i>
               <p>История</p>
             </router-link>

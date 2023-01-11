@@ -3,8 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\IncomeСategoryResource;
-use App\Http\Resources\ExpensesCategoryResource;
+use App\Http\Resources\Incomes\IncomeСategoryResource;
+use App\Http\Resources\Expenses\ExpensesCategoryResource;
 
 class CurrentUserResource extends JsonResource
 {

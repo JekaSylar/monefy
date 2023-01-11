@@ -5,9 +5,18 @@ export default {
 
     state() {
         return {
-            incomeСategory: {
+            incomeСategory: [],
+            recordsCategory: {
                 name: "",
                 id: 0,
+                records: [
+                    {
+                        id: 0,
+                        description: null,
+                        summa: 0,
+                        date: null,
+                    },
+                ],
             },
         };
     },
@@ -15,10 +24,16 @@ export default {
         getIncomeCategory(state) {
             return state.incomeСategory;
         },
+        getRecordCategory(state) {
+            return state.recordsCategory;
+        },
     },
     mutations: {
         setIncomeCategory(state, value) {
             state.incomeСategory = value;
+        },
+        setRecordCategory(state, value) {
+            state.recordsCategory = value;
         },
         addCategory(state, payload) {
             state.incomeСategory.data.push(payload);
@@ -141,6 +156,28 @@ export default {
                     { root: true }
                 );
                 console.log(e.response.data.message);
+            }
+        },
+
+        async showCategoryIncome({ commit, dispatch }, $id) {
+            try {
+                commit("loader/setLoader", true, { root: true });
+                const { data } = await axios.get("api/v1/incomes/" + $id);
+                commit("setRecordCategory", data.data);
+            } catch (e) {
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Ошибка",
+                        text: e.response.data.message,
+                        type: "alert-danger",
+                        ico: "fa-exclamation-triangle",
+                    },
+                    { root: true }
+                );
+                console.log(e.response.data.message);
+            } finally {
+                commit("loader/setLoader", false, { root: true });
             }
         },
     },

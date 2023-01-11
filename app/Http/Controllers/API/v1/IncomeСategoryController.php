@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\IncomeСategory;
-use App\Http\Resources\IncomeСategoryResource;
+use App\Http\Resources\Incomes\IncomeСategoryRecordResource;
+use App\Http\Resources\Incomes\IncomeСategoryResource;
 use App\Http\Requests\IncomeСategory\StoreIncomeСategoryRequest;
 use App\Http\Requests\IncomeСategory\UpdateIncomeСategoryRequest;
 use App\Service\IncomeСategoryService;
@@ -57,7 +58,10 @@ class IncomeСategoryController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $query = IncomeСategory::where('user_id', auth()->user()->id)->where('id', $id)->with('records')->orderBy('name', 'desc')->first();
+
+        return  new IncomeСategoryRecordResource($query);
     }
 
     /**

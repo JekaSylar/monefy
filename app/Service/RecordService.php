@@ -88,4 +88,26 @@ class RecordService
 
         $record->delete();
     }
+
+    public function currentMonth($type)
+    {
+        $year = date('Y');
+
+        $month = date('m');
+
+        $сurrent_date = Record::where('user_id', $this->CurrentUserID())->where('type', $type)->whereYear('date', $year)->whereMonth('date', $month)->get();
+
+        return $сurrent_date;
+    }
+
+    public function currentPostMonth($type)
+    {
+        $year = date('Y');
+
+        $month = date('m');
+
+        $current_post = Record::where('user_id', $this->CurrentUserID())->where('type', $type)->whereYear('date', $year)->whereMonth('date', $month)->orderBy('id', 'desc')->get();
+
+        return $current_post;
+    }
 }

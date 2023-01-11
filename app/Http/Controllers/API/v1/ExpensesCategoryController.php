@@ -5,7 +5,8 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Controllers\Controller;
 use App\Service\ExpensesCategoryService;
 use App\Models\ExpensesCategory;
-use App\Http\Resources\ExpensesCategoryResource;
+use App\Http\Resources\Expenses\ExpensesCategoryResource;
+use App\Http\Resources\Expenses\ExpenseСategoryRecordResource;
 use App\Http\Requests\ExpensesCategory\UpdateExpensesCategoryRequest;
 use App\Http\Requests\ExpensesCategory\StoreExpensesCategoryRequest;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +52,9 @@ class ExpensesCategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $query = ExpensesCategory::where('user_id', auth()->user()->id)->where('id', $id)->with('records')->orderBy('name', 'desc')->first();
+
+        return  new ExpenseСategoryRecordResource($query);
     }
 
     /**

@@ -192,7 +192,7 @@ export default {
       await store.dispatch("record/createdRecord", record.value);
       isButtonLoader.value = false;
       setTimeout(() => {
-        router.push("/history");
+        router.push("/records");
       }, 1000);
     };
 

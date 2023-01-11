@@ -22,11 +22,30 @@ export default {
                     },
                 },
             ],
+
+            record: {
+                id: 0,
+                description: "",
+                summa: 0,
+                type: "",
+                date: "",
+                incomeСategory: {
+                    id: 0,
+                    name: "",
+                },
+                expenseCategory: {
+                    id: 0,
+                    name: "",
+                },
+            },
         };
     },
     mutations: {
         setRecords(state, value) {
             state.records = value;
+        },
+        setRecord(state, value) {
+            state.record = value;
         },
 
         removeRecord(state, index) {
@@ -42,6 +61,10 @@ export default {
     getters: {
         getRecords(state) {
             return state.records;
+        },
+
+        getRecord(state) {
+            return state.record;
         },
     },
     actions: {
@@ -193,6 +216,66 @@ export default {
                     },
                     { root: true }
                 );
+            }
+        },
+
+        async lastIncomes({ commit, dispatch }) {
+            try {
+                const { data } = await axios.get("api/v1/lastincomes");
+
+                return data.data;
+            } catch (e) {
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Ошибка",
+                        text: e.response.data.message,
+                        type: "alert-danger",
+                        ico: "fa-exclamation-triangle",
+                    },
+                    { root: true }
+                );
+            }
+        },
+
+        async lastExpenses({ commit, dispatch }) {
+            try {
+                const { data } = await axios.get("api/v1/lastexpenses");
+
+                return data.data;
+            } catch (e) {
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Ошибка",
+                        text: e.response.data.message,
+                        type: "alert-danger",
+                        ico: "fa-exclamation-triangle",
+                    },
+                    { root: true }
+                );
+            }
+        },
+
+        async showRecord({ commit, dispatch }, $id) {
+            try {
+                commit("loader/setLoader", true, { root: true });
+                const { data } = await axios.get("api/v1/records/" + $id);
+                commit("setRecord", data.data);
+            } catch (e) {
+                dispatch(
+                    "setMessage",
+                    {
+                        title: "Ошибка",
+                        text: e.response.data.message,
+                        type: "alert-danger",
+                        ico: "fa-exclamation-triangle",
+                    },
+                    { root: true }
+                );
+                console.log(e.response.data.message);
+            } finally {
+                commit("loader/setLoader", false, { root: true });
             }
         },
     },

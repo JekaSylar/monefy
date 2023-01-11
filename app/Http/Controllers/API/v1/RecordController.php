@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Record\StoreRecordRequest;
 use App\Http\Requests\Record\UpdateRecordRequest;
 use App\Service\RecordService;
-use App\Http\Resources\RecordResource;
+use App\Http\Resources\Records\RecordResource;
 use App\Models\Record;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
@@ -30,7 +30,7 @@ class RecordController extends Controller
     {
         $id = Auth::id();
 
-        return RecordResource::collection(Record::where('user_id', $id)->orderBy('id', 'desc')->paginate(20));
+        return RecordResource::collection(Record::where('user_id', $id)->orderBy('date', 'desc')->paginate(20));
     }
 
     /**
@@ -54,7 +54,10 @@ class RecordController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $query = Record::where('id', $id)->first();
+
+        return new RecordResource($query);
     }
 
     /**

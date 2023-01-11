@@ -2,8 +2,10 @@
   <div class="col-lg-7" v-if="incomeСategories.data?.length">
     <h4 class="title__block-name">Категории</h4>
     <div class="card-body p-0">
-      <table class="table table-sm table__category">
-        <thead>
+      <table
+        class="table table-sm table__category table-striped table-bordered"
+      >
+        <thead class="table-dark">
           <tr>
             <th style="width: 10px">№</th>
             <th>Названия</th>
@@ -16,8 +18,18 @@
             :key="category.id"
           >
             <td>{{ idx + 1 }}</td>
-            <td>{{ category.name }}</td>
+            <td class="category__name">
+              <router-link
+                :to="{ name: 'category_incomes', params: { id: category.id } }"
+              >
+                {{ category.name }}
+              </router-link>
+            </td>
             <td>
+              <router-link
+                :to="{ name: 'category_incomes', params: { id: category.id } }"
+                ><i class="fa-solid fa-eye"></i
+              ></router-link>
               <a href="#" @click.prevent="infoCategoryEdit(category)"
                 ><i class="fas fa-edit"></i
               ></a>
@@ -105,5 +117,17 @@ export default {
 }
 .table__category {
   text-align: center;
+}
+
+.category__name a {
+  font-size: 16px;
+  color: #000;
+}
+.category__name a:hover {
+  text-decoration: underline;
+}
+
+.fa-eye {
+  color: #007bff !important;
 }
 </style>
